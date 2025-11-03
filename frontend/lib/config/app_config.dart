@@ -12,12 +12,12 @@ class AppConfig {
 
   String apiPath(String path) {
     final normalized = path.startsWith('/') ? path.substring(1) : path;
-    return '/';
+    return '$apiBaseUrl/$normalized';
   }
 
   String paymentPath(String path) {
     final normalized = path.startsWith('/') ? path.substring(1) : path;
-    return '/';
+    return '$paymentBaseUrl/$normalized';
   }
 }
 
@@ -39,7 +39,7 @@ extension AppConfigDebugExtension on AppConfig {
   void debugLog() {
     if (kDebugMode) {
       // ignore: avoid_print, only for startup diagnostics
-      print('AppConfig: apiBaseUrl=, paymentBaseUrl=');
+      print('AppConfig: apiBaseUrl=$apiBaseUrl, paymentBaseUrl=$paymentBaseUrl');
     }
   }
 }

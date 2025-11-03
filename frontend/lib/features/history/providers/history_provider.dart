@@ -5,7 +5,7 @@ import '../../../config/app_config.dart';
 import '../../auth/providers/auth_controller.dart';
 import '../../catalog/providers/catalog_provider.dart';
 import '../../common/providers/api_client.dart';
-import '../models/redemption.dart';
+import '../models/redemption.dart';\nimport '../../wallet/providers/wallet_provider.dart';
 
 final redemptionHistoryProvider = FutureProvider<List<Redemption>>((ref) async {
   final dio = ref.read(dioProvider);
@@ -17,7 +17,7 @@ final redemptionHistoryProvider = FutureProvider<List<Redemption>>((ref) async {
   final response = await dio.get<List<dynamic>>(
     config.apiPath('rewards/history/'),
     options: Options(headers: {
-      'Authorization': 'Bearer ',
+      'Authorization': 'Bearer $token',
     }),
   );
   final list = response.data ?? [];
@@ -38,7 +38,7 @@ final redeemProductProvider = Provider<Future<void> Function(int)>((ref) {
       config.apiPath('rewards/history/redeem/'),
       data: {'product_id': productId},
       options: Options(headers: {
-        'Authorization': 'Bearer ',
+        'Authorization': 'Bearer $token',
       }),
     );
     await ref.read(authControllerProvider.notifier).loadProfile();

@@ -108,7 +108,7 @@ class _AppShellState extends ConsumerState<AppShell> {
                         vertical: 10,
                       ),
                       child: Text(
-                        '\ pts',
+                        '${authState.user!.points} pts',
                         style: theme.textTheme.titleMedium?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

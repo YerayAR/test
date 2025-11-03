@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../../config/theme.dart';
 import '../../auth/providers/auth_controller.dart';
 import '../../common/widgets/async_value_widget.dart';
 import '../../history/providers/history_provider.dart';
+import '../../wallet/models/wallet_summary.dart';
+import '../../wallet/providers/wallet_provider.dart';
 import '../models/product.dart';
 import '../providers/catalog_provider.dart';
 
@@ -28,6 +31,8 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     });
     try {
       await ref.read(redeemProductProvider)(product.id);
+      ref.invalidate(walletSummaryProvider);
+      ref.invalidate(walletTransactionsProvider);
       setState(() {
         _feedback = 'Canje realizado correctamente.';
       });
@@ -52,7 +57,19 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     return AsyncValueWidget<Product>(
       value: productValue,
       data: (product) {
-        final canRedeem = auth.user != null && auth.user!.points >= product.pointsCost;
+        final walletSummary = walletSummaryAsync.maybeWhen(
+          data: (value) => value,
+          orElse: () => null,
+        );
+        final walletLoading = walletSummaryAsync.isLoading;
+        final walletError = walletSummaryAsync.hasError;
+        final userPoints = auth.user?.points ?? 0;
+        final pointsCost = product.pointsCost ?? 0;
+        final moneyCost = product.priceAmount ?? 0;
+        final canRedeem = product.requiresPoints
+            ? auth.user != null && product.pointsCost != null && userPoints >= pointsCost
+            : walletSummary != null && product.priceAmount != null && walletSummary.balance >= moneyCost;
+
         return LayoutBuilder(
           builder: (context, constraints) {
             final isWide = constraints.maxWidth > 900;
@@ -70,7 +87,10 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                             Expanded(
                               child: _ProductInfo(
                                 product: product,
-                                authPoints: auth.user?.points ?? 0,
+                                authPoints: userPoints,
+                                walletSummary: walletSummary,
+                                walletLoading: walletLoading,
+                                walletError: walletError,
                                 canRedeem: canRedeem,
                                 isRedeeming: _isRedeeming,
                                 feedback: _feedback,
@@ -85,7 +105,10 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                             const SizedBox(height: 24),
                             _ProductInfo(
                               product: product,
-                              authPoints: auth.user?.points ?? 0,
+                              authPoints: userPoints,
+                              walletSummary: walletSummary,
+                              walletLoading: walletLoading,
+                              walletError: walletError,
                               canRedeem: canRedeem,
                               isRedeeming: _isRedeeming,
                               feedback: _feedback,
@@ -166,6 +189,9 @@ class _ProductInfo extends StatelessWidget {
   const _ProductInfo({
     required this.product,
     required this.authPoints,
+    required this.walletSummary,
+    required this.walletLoading,
+    required this.walletError,
     required this.canRedeem,
     required this.isRedeeming,
     required this.feedback,
@@ -174,6 +200,9 @@ class _ProductInfo extends StatelessWidget {
 
   final Product product;
   final int authPoints;
+  final WalletSummary? walletSummary;
+  final bool walletLoading;
+  final bool walletError;
   final bool canRedeem;
   final bool isRedeeming;
   final String? feedback;
@@ -182,6 +211,78 @@ class _ProductInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final requiresMoney = product.requiresMoney;
+    final highlightColor = requiresMoney ? seedSecondary : seedPrimary;
+    final currencyFormatter = NumberFormat.simpleCurrency(
+      name: walletSummary?.currency ?? 'EUR',
+    );
+    final String costValue = product.costLabel;
+    final String balanceValue = requiresMoney
+        ? walletSummary != null
+            ? currencyFormatter.format(walletSummary!.balance)
+            : walletLoading
+                ? 'Actualizando...'
+                : walletError
+                    ? 'No disponible'
+                    : '--'
+        : ' pts';
+    final double moneyCost = product.priceAmount ?? 0;
+    final double missingAmount = walletSummary != null
+        ? (moneyCost - walletSummary!.balance).clamp(0, double.maxFinite)
+        : 0;
+
+    String statusMessage;
+    Color statusColor;
+    Color containerColor;
+    IconData statusIcon;
+
+    if (requiresMoney) {
+      if (walletLoading) {
+        statusMessage = 'Consultando tu saldo disponible...';
+        statusColor = seedBackground;
+        containerColor = seedBackground.withOpacity(0.08);
+        statusIcon = Icons.hourglass_bottom;
+      } else if (walletSummary == null) {
+        statusMessage = walletError
+            ? 'No pudimos obtener tu saldo. Actualiza la pagina e intentalo nuevamente.'
+            : 'Consulta tu saldo para canjear con dinero.';
+        statusColor = Colors.redAccent;
+        containerColor = Colors.redAccent.withOpacity(0.08);
+        statusIcon = Icons.warning_amber_rounded;
+      } else if (canRedeem) {
+        statusMessage = 'Tienes saldo suficiente en tu wallet.';
+        statusColor = highlightColor;
+        containerColor = highlightColor.withOpacity(0.12);
+        statusIcon = Icons.check_circle;
+      } else {
+        final missingText = currencyFormatter.format(missingAmount);
+        statusMessage = 'Saldo insuficiente en tu wallet. Te faltan .';
+        statusColor = Colors.redAccent;
+        containerColor = Colors.redAccent.withOpacity(0.08);
+        statusIcon = Icons.warning_amber_rounded;
+      }
+    } else {
+      if (canRedeem) {
+        statusMessage = 'Tienes puntos suficientes para canjear este producto.';
+        statusColor = highlightColor;
+        containerColor = highlightColor.withOpacity(0.1);
+        statusIcon = Icons.check_circle;
+      } else {
+        statusMessage =
+            'No cuentas con puntos suficientes. Sigue acumulando para canjearlo.';
+        statusColor = Colors.redAccent;
+        containerColor = Colors.redAccent.withOpacity(0.08);
+        statusIcon = Icons.warning_amber_rounded;
+      }
+    }
+
+    final bool isButtonEnabled =
+        !isRedeeming && canRedeem && (!requiresMoney || walletSummary != null);
+    final IconData actionIcon =
+        requiresMoney ? Icons.payments_rounded : Icons.card_giftcard_rounded;
+    final String actionLabel =
+        requiresMoney ? 'Canjear con saldo' : 'Canjear producto';
+
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: Padding(
@@ -206,15 +307,19 @@ class _ProductInfo extends StatelessWidget {
             Row(
               children: [
                 _InfoBadge(
-                  icon: Icons.stars_rounded,
+                  icon: requiresMoney ? Icons.payments_outlined : Icons.stars_rounded,
                   label: 'Costo',
-                  value: '${product.pointsCost} pts',
+                  value: costValue,
+                  highlightColor: highlightColor,
                 ),
                 const SizedBox(width: 12),
                 _InfoBadge(
-                  icon: Icons.account_balance_wallet_outlined,
-                  label: 'Tus puntos',
-                  value: '$authPoints pts',
+                  icon: requiresMoney
+                      ? Icons.account_balance_wallet_rounded
+                      : Icons.account_balance_wallet_outlined,
+                  label: requiresMoney ? 'Saldo wallet' : 'Tus puntos',
+                  value: balanceValue,
+                  highlightColor: highlightColor,
                 ),
               ],
             ),
@@ -222,24 +327,22 @@ class _ProductInfo extends StatelessWidget {
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               decoration: BoxDecoration(
-                color: canRedeem ? seedPrimary.withOpacity(0.1) : Colors.redAccent.withOpacity(0.08),
+                color: containerColor,
                 borderRadius: BorderRadius.circular(18),
               ),
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
                   Icon(
-                    canRedeem ? Icons.check_circle : Icons.warning_amber_rounded,
-                    color: canRedeem ? seedPrimary : Colors.redAccent,
+                    statusIcon,
+                    color: statusColor,
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      canRedeem
-                          ? 'Tienes puntos suficientes para canjear este producto.'
-                          : 'No cuentas con puntos suficientes. Sigue acumulando para canjearlo.',
+                      statusMessage,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: canRedeem ? seedPrimary : Colors.redAccent,
+                        color: statusColor,
                       ),
                     ),
                   ),
@@ -248,15 +351,18 @@ class _ProductInfo extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: canRedeem && !isRedeeming ? onRedeem : null,
+              onPressed: isButtonEnabled ? onRedeem : null,
               icon: isRedeeming
                   ? const SizedBox(
                       width: 18,
                       height: 18,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
                     )
-                  : const Icon(Icons.card_giftcard_rounded),
-              label: const Text('Canjear producto'),
+                  : Icon(actionIcon),
+              label: Text(actionLabel),
             ),
             const SizedBox(height: 16),
             AnimatedSwitcher(
@@ -267,17 +373,19 @@ class _ProductInfo extends StatelessWidget {
                       key: ValueKey(feedback),
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: seedPrimary.withOpacity(0.1),
+                        color: highlightColor.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.info_outline, color: seedPrimary),
+                          Icon(Icons.info_outline, color: highlightColor),
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
                               feedback!,
-                              style: theme.textTheme.bodyMedium?.copyWith(color: seedPrimary),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: highlightColor,
+                              ),
                             ),
                           ),
                         ],
@@ -292,11 +400,17 @@ class _ProductInfo extends StatelessWidget {
 }
 
 class _InfoBadge extends StatelessWidget {
-  const _InfoBadge({required this.icon, required this.label, required this.value});
+  const _InfoBadge({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.highlightColor,
+  });
 
   final IconData icon;
   final String label;
   final String value;
+  final Color highlightColor;
 
   @override
   Widget build(BuildContext context) {
@@ -305,13 +419,13 @@ class _InfoBadge extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: theme.colorScheme.primary.withOpacity(0.1),
+          color: highlightColor.withOpacity(0.12),
           borderRadius: BorderRadius.circular(18),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: seedPrimary),
+            Icon(icon, color: highlightColor),
             const SizedBox(height: 8),
             Text(
               label,
@@ -323,7 +437,7 @@ class _InfoBadge extends StatelessWidget {
             Text(
               value,
               style: theme.textTheme.titleMedium?.copyWith(
-                color: seedPrimary,
+                color: highlightColor,
                 fontWeight: FontWeight.w700,
               ),
             ),

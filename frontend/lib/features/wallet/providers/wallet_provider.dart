@@ -31,9 +31,9 @@ final walletSummaryProvider = FutureProvider<WalletSummary>((ref) async {
     throw StateError('Usuario no autenticado.');
   }
   final response = await dio.get<Map<String, dynamic>>(
-    config.paymentPath('wallet/'),
+    '${config.apiBaseUrl}/wallet/',
     options: Options(headers: {
-      'Authorization': 'Bearer ',
+      'Authorization': 'Bearer $token',
     }),
   );
   return WalletSummary.fromJson(response.data!);
@@ -47,9 +47,9 @@ final walletTransactionsProvider = FutureProvider<List<WalletTransaction>>((ref)
     return const [];
   }
   final response = await dio.get<List<dynamic>>(
-    config.paymentPath('wallet/history/'),
+    '${config.apiBaseUrl}/wallet/history/',
     options: Options(headers: {
-      'Authorization': 'Bearer ',
+      'Authorization': 'Bearer $token',
     }),
   );
   final list = response.data ?? [];
@@ -84,11 +84,11 @@ class WalletDepositService {
       'cancel_url': cancelUrl,
     };
     final response = await dio.post<Map<String, dynamic>>(
-      config.paymentPath('wallet/deposit/'),
+      '${config.apiBaseUrl}/wallet/deposit/',
       data: jsonEncode(payload),
       options: Options(
         headers: {
-          'Authorization': 'Bearer ',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';\nimport 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../config/theme.dart';
 import '../../common/widgets/async_value_widget.dart';
@@ -74,7 +74,7 @@ class _WalletScreenState extends ConsumerState<WalletScreen> {
     } catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al crear la recarga: ')),
+          SnackBar(content: Text('Error al crear la recarga: $error')),
         );
       }
     } finally {
@@ -199,7 +199,7 @@ class _BalanceCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Actualizado: ',
+            'Actualizado: ${DateFormat('dd/MM/yyyy HH:mm').format(summary.updatedAt.toLocal())}',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.white.withOpacity(0.85),
                 ),
@@ -252,7 +252,7 @@ class _DepositCard extends StatelessWidget {
               controller: controller,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
-                labelText: 'Monto ()',
+                labelText: 'Monto ($currency)',
                 prefixIcon: const Icon(Icons.payments_rounded),
               ),
             ),
@@ -310,7 +310,7 @@ class _DepositError extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                'No se pudo cargar la informacion de la wallet: ',
+                'No se pudo cargar la informacion de la wallet: $message',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: seedSecondary),
               ),
             ),
@@ -343,14 +343,14 @@ class _TransactionTile extends StatelessWidget {
           child: Icon(icon, color: color),
         ),
         title: Text(
-          ' • ',
+          '$titlePrefix${transaction.description.isNotEmpty ? ' • ${transaction.description}' : ''}',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         subtitle: Text(
           DateFormat('dd MMM yyyy, HH:mm').format(transaction.createdAt.toLocal()),
         ),
         trailing: Text(
-          '',
+          '${isPositive ? '+' : '-'}$amountText',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: color,
                 fontWeight: FontWeight.bold,

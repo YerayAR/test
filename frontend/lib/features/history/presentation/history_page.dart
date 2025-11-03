@@ -130,12 +130,18 @@ class _HistoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isMoney = redemption.wasMoney;
+    final color = isMoney ? seedSecondary : seedPrimary;
+    final icon = isMoney ? Icons.payments_rounded : Icons.card_giftcard_rounded;
+    final amountText = isMoney
+        ? '-${NumberFormat.simpleCurrency(name: redemption.currency).format(redemption.moneySpent)}'
+        : '-${redemption.pointsSpent} pts';
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: seedPrimary.withOpacity(0.1),
-          child: const Icon(Icons.card_giftcard_rounded, color: seedPrimary),
+          backgroundColor: color.withOpacity(0.12),
+          child: Icon(icon, color: color),
         ),
         title: Text(
           redemption.productName,
@@ -143,9 +149,9 @@ class _HistoryTile extends StatelessWidget {
         ),
         subtitle: Text(formattedDate),
         trailing: Text(
-          '- pts',
+          amountText,
           style: theme.textTheme.titleMedium?.copyWith(
-            color: seedSecondary,
+            color: color,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -180,3 +186,5 @@ class _EmptyHistory extends StatelessWidget {
     );
   }
 }
+
+
