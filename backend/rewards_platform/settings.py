@@ -197,7 +197,7 @@ CORS_ALLOWED_ORIGINS = [
     ).split(",")
     if origin.strip()
 ]
-CORS_ALLOW_ALL_ORIGINS = not CORS_ALLOWED_ORIGINS
+CORS_ALLOW_ALL_ORIGINS = False
 
 # ---------------------------------------------------------------------------
 # Defaults
