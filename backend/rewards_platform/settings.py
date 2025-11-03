@@ -18,12 +18,18 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", get_random_secret_key())
 DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() in {"1", "true", "yes"}
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+    for host in os.environ.get(
+        "DJANGO_ALLOWED_HOSTS",
+        "localhost,127.0.0.1,determined-exploration-production-41ef.up.railway.app"
+    ).split(",")
     if host.strip()
 ]
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()
-    for origin in os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
+    for origin in os.environ.get(
+        "DJANGO_CSRF_TRUSTED_ORIGINS",
+        "https://determined-exploration-production-41ef.up.railway.app,https://test-ibujf5xky-yerays-projects-0617076e.vercel.app"
+    ).split(",")
     if origin.strip()
 ]
 
@@ -185,7 +191,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     origin.strip()
-    for origin in os.environ.get("CORS_ALLOWED_ORIGINS", "").split(",")
+    for origin in os.environ.get(
+        "CORS_ALLOWED_ORIGINS",
+        "https://test-ibujf5xky-yerays-projects-0617076e.vercel.app,http://localhost:5173,http://localhost:3000"
+    ).split(",")
     if origin.strip()
 ]
 CORS_ALLOW_ALL_ORIGINS = not CORS_ALLOWED_ORIGINS
