@@ -1,8 +1,11 @@
 {
+  "buildCommand": "flutter build web --release",
+  "outputDirectory": "build/web",
+  "framework": null,
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://TU_BACKEND_URL/api/"
+      "destination": "https://TU_BACKEND_URL/api/$1"
     }
   ]
 }
