@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://TU_BACKEND_URL/api/"
+    }
+  ]
+}
