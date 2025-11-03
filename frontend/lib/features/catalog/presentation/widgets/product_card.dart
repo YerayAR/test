@@ -11,7 +11,8 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);\n    final costColor = product.requiresPoints ? seedPrimary : seedSecondary;
+    final theme = Theme.of(context);
+    final costColor = product.requiresPoints ? seedPrimary : seedSecondary;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,

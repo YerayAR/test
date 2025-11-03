@@ -53,6 +53,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   Widget build(BuildContext context) {
     final productValue = ref.watch(productBySlugProvider(widget.slug));
     final auth = ref.watch(authControllerProvider);
+    final walletSummaryAsync = ref.watch(walletSummaryProvider);
 
     return AsyncValueWidget<Product>(
       value: productValue,

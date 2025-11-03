@@ -22,7 +22,7 @@ class AppConfig {
 }
 
 final appConfigProvider = Provider<AppConfig>((ref) {
-  const defaultApiUrl = 'http://localhost:8000/api';
+  const defaultApiUrl = 'https://determined-exploration-production-41ef.up.railway.app/api';
   const apiUrl = String.fromEnvironment('API_BASE_URL', defaultValue: defaultApiUrl);
   const paymentsUrl = String.fromEnvironment(
     'PAYMENT_API_BASE_URL',

@@ -111,9 +111,9 @@
     },
     {
       "name": "go_router",
-      "rootUri": "file:///C:/Users/yera2/AppData/Local/Pub/Cache/hosted/pub.dev/go_router-14.8.1",
+      "rootUri": "file:///C:/Users/yera2/AppData/Local/Pub/Cache/hosted/pub.dev/go_router-13.2.5",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.2"
     },
     {
       "name": "google_fonts",

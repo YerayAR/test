@@ -5,7 +5,8 @@ import '../../../config/app_config.dart';
 import '../../auth/providers/auth_controller.dart';
 import '../../catalog/providers/catalog_provider.dart';
 import '../../common/providers/api_client.dart';
-import '../models/redemption.dart';\nimport '../../wallet/providers/wallet_provider.dart';
+import '../models/redemption.dart';
+import '../../wallet/providers/wallet_provider.dart';
 
 final redemptionHistoryProvider = FutureProvider<List<Redemption>>((ref) async {
   final dio = ref.read(dioProvider);

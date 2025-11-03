@@ -8,7 +8,8 @@ import '../features/auth/providers/auth_controller.dart';
 import '../features/auth/presentation/login_page.dart';
 import '../features/catalog/presentation/catalog_page.dart';
 import '../features/catalog/presentation/product_detail_page.dart';
-import '../features/history/presentation/history_page.dart';\nimport '../features/wallet/presentation/wallet_screen.dart';
+import '../features/history/presentation/history_page.dart';
+import '../features/wallet/presentation/wallet_screen.dart';
 import 'widgets/app_shell.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -24,7 +25,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     refreshListenable: GoRouterRefreshStream(authNotifier.stream),
     redirect: (context, state) {
       final authState = ref.read(authControllerProvider);
-      final isLoggingIn = state.location == '/login';
+      final isLoggingIn = state.matchedLocation == '/login';
       if (!authState.isAuthenticated) {
         return isLoggingIn ? null : '/login';
       }

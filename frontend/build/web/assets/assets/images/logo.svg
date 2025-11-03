@@ -1,0 +1,6 @@
+<svg width=\"120\" height=\"120\" viewBox=\"0 0 120 120\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">
+  <rect width=\"120\" height=\"120\" rx=\"24\" fill=\"#0F172A\"/>
+  <path d=\"M60 28L84 44V76L60 92L36 76V44L60 28Z\" fill=\"#22D3EE\"/>
+  <path d=\"M60 40L75 50V70L60 80L45 70V50L60 40Z\" fill=\"#F97316\" opacity=\"0.85\"/>
+  <circle cx=\"60\" cy=\"60\" r=\"10\" fill=\"white\"/>
+</svg>
