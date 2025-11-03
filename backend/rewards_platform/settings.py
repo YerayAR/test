@@ -28,7 +28,7 @@ CSRF_TRUSTED_ORIGINS = [
     origin.strip()
     for origin in os.environ.get(
         "DJANGO_CSRF_TRUSTED_ORIGINS",
-        "https://determined-exploration-production-41ef.up.railway.app,https://test-ibujf5xky-yerays-projects-0617076e.vercel.app"
+        "https://determined-exploration-production-41ef.up.railway.app,https://test-yerays-projects-0617076e.vercel.app,https://test-two-dun-72.vercel.app"
     ).split(",")
     if origin.strip()
 ]
@@ -193,7 +193,7 @@ CORS_ALLOWED_ORIGINS = [
     origin.strip()
     for origin in os.environ.get(
         "CORS_ALLOWED_ORIGINS",
-        "https://test-ibujf5xky-yerays-projects-0617076e.vercel.app,http://localhost:5173,http://localhost:3000"
+        "https://test-yerays-projects-0617076e.vercel.app,https://test-two-dun-72.vercel.app,http://localhost:5173,http://localhost:3000"
     ).split(",")
     if origin.strip()
 ]
