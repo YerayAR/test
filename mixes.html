@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mixes &amp; Player | DJ KUKI</title>
+    <meta name="description" content="Mixes recientes de DJ KUKI con reproductor integrado y tracklists." />
+    <link rel="canonical" href="https://djkuki.vercel.app/mixes.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mixes DJ KUKI" />
+    <meta property="og:description" content="Escucha Breakbeat, Hardcore Breaks y Drum &amp; Bass." />
+    <meta property="og:url" content="https://djkuki.vercel.app/mixes.html" />
+    <meta property="og:image" content="https://djkuki.vercel.app/assets/img/social-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mixes DJ KUKI" />
+    <meta name="twitter:description" content="Tracklists y reproductor integrado." />
+    <meta name="twitter:image" content="https://djkuki.vercel.app/assets/img/social-og.jpg" />
+    <link rel="preload" href="assets/fonts/Orbitron-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="theme-color" content="#b026ff" />
+    <link rel="stylesheet" href="assets/css/vendor-normalize.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="page">
+      <header>
+        <nav class="navbar" aria-label="Principal">
+          <a class="brand" href="index.html">
+            <img src="assets/img/djkuki-logo.svg" alt="DJ KUKI" width="48" height="48" loading="lazy" />
+            DJ KUKI
+          </a>
+          <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="about.html">Sobre</a>
+            <a href="gigs.html">Gigs</a>
+            <a href="mixes.html" aria-current="page">Mixes</a>
+            <a href="contact.html">Contacto</a>
+          </div>
+        </nav>
+      </header>
+      <main id="contenido">
+        <section class="page-hero" aria-labelledby="mixes-title">
+          <h1 id="mixes-title">Mixes &amp; player</h1>
+          <p>
+            Escucha sesiones completas desde SoundCloud, Mixcloud o YouTube sin salir del sitio. Abre el tracklist para seguir cada corte.
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="player-heading">
+          <div class="section-heading">
+            <h2 id="player-heading">Reproductor</h2>
+          </div>
+          <div class="player-shell">
+            <div class="player-screen" id="mix-player" data-player aria-live="polite">
+              <p>Selecciona un mix para reproducirlo.</p>
+            </div>
+            <button class="btn btn-ghost" type="button" data-player-clear aria-disabled="true">Cerrar player</button>
+          </div>
+          <div id="mixes-grid" class="cards-grid mixes-grid" role="list" aria-live="polite"></div>
+        </section>
+      </main>
+      <footer>
+        <small>© <span id="year"></span> DJ KUKI — Breakbeat Futurista.</small>
+      </footer>
+    </div>
+
+    <div class="modal" id="tracklist-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="tracklist-title" hidden>
+      <div class="modal-dialog" data-modal-dialog>
+        <button class="modal-close" type="button" aria-label="Cerrar" data-modal-close>&times;</button>
+        <h3 id="tracklist-title" data-tracklist-title>Tracklist</h3>
+        <ul data-tracklist></ul>
+        <button class="btn btn-primary" type="button" data-modal-close>Cerrar</button>
+      </div>
+    </div>
+
+    <script defer src="assets/js/app.js"></script>
+    <script defer src="assets/js/player.js"></script>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DJ KUKI | Breakbeat, Hardcore Breaks &amp; Drum &amp; Bass</title>
+    <meta
+      name="description"
+      content="Sets en vivo, mixes y agenda de DJ KUKI. Breakbeat, Hardcore Breaks y Drum &amp; Bass con estética cyberpunk futurista."
+    />
+    <link rel="canonical" href="https://djkuki.vercel.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="DJ KUKI | Breakbeat, Hardcore Breaks &amp; Drum &amp; Bass" />
+    <meta property="og:description" content="Sets en vivo, mixes y agenda de DJ KUKI." />
+    <meta property="og:url" content="https://djkuki.vercel.app/" />
+    <meta property="og:image" content="https://djkuki.vercel.app/assets/img/social-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DJ KUKI" />
+    <meta name="twitter:description" content="Breakbeat, Hardcore Breaks y Drum &amp; Bass." />
+    <meta name="twitter:image" content="https://djkuki.vercel.app/assets/img/social-og.jpg" />
+    <link rel="preload" href="assets/fonts/Orbitron-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="theme-color" content="#b026ff" />
+    <link rel="stylesheet" href="assets/css/vendor-normalize.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="page">
+      <header>
+        <nav class="navbar" aria-label="Principal">
+          <a class="brand" href="index.html">
+            <img src="assets/img/djkuki-logo.svg" alt="DJ KUKI" width="48" height="48" loading="lazy" />
+            DJ KUKI
+          </a>
+          <div class="nav-links">
+            <a href="index.html" aria-current="page">Inicio</a>
+            <a href="about.html">Sobre</a>
+            <a href="gigs.html">Gigs</a>
+            <a href="mixes.html">Mixes</a>
+            <a href="contact.html">Contacto</a>
+          </div>
+        </nav>
+      </header>
+      <main id="contenido">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-grid">
+            <p class="badge">Breakbeat · Hardcore Breaks · Drum &amp; Bass</p>
+            <h1 id="hero-title" class="hero-title">
+              <span class="logo-glitch" data-text="DJ KUKI">DJ KUKI</span>
+            </h1>
+            <p class="hero-claim">Sesiones híbridas en directo desde el futuro cyberpunk.</p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="mixes.html">Escuchar mixes</a>
+              <a class="btn btn-outline" href="gigs.html">Ver agenda</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="gigs-heading">
+          <div class="section-heading">
+            <h2 id="gigs-heading">Próximos gigs</h2>
+            <a class="btn-link" href="gigs.html">Ver agenda completa</a>
+          </div>
+          <div id="gigs-preview" class="cards-grid" role="list" aria-live="polite"></div>
+        </section>
+
+        <section class="section" aria-labelledby="mixes-heading">
+          <div class="section-heading">
+            <h2 id="mixes-heading">Últimos mixes</h2>
+            <a class="btn-link" href="mixes.html">Ver todos</a>
+          </div>
+          <div id="mixes-preview" class="cards-grid" role="list" aria-live="polite"></div>
+        </section>
+
+        <section class="section gallery" aria-labelledby="gallery-heading">
+          <div class="section-heading">
+            <h2 id="gallery-heading">Visual live feed</h2>
+            <p>Imágenes de los últimos shows y sesiones inmersivas.</p>
+          </div>
+          <div class="gallery-track" role="list">
+            <figure role="listitem">
+              <img src="assets/img/gallery-1.jpg" alt="Cabina con luces neón moradas" loading="lazy" decoding="async" />
+            </figure>
+            <figure role="listitem">
+              <img src="assets/img/gallery-2.jpg" alt="Público entre lásers cyan" loading="lazy" decoding="async" />
+            </figure>
+            <figure role="listitem">
+              <img src="assets/img/gallery-3.jpg" alt="Detalle de mezcladora iluminada" loading="lazy" decoding="async" />
+            </figure>
+            <figure role="listitem">
+              <img src="assets/img/gallery-4.jpg" alt="DJ con fondo holográfico naranja" loading="lazy" decoding="async" />
+            </figure>
+            <figure role="listitem">
+              <img src="assets/img/gallery-5.jpg" alt="Club con pantallas glitch" loading="lazy" decoding="async" />
+            </figure>
+            <figure role="listitem">
+              <img src="assets/img/gallery-6.jpg" alt="Luces azules sobre la pista" loading="lazy" decoding="async" />
+            </figure>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <small>© <span id="year"></span> DJ KUKI — Breakbeat Futurista.</small>
+      </footer>
+    </div>
+    <script defer src="assets/js/app.js"></script>
+  </body>
+</html>

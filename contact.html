@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contacto &amp; Booking | DJ KUKI</title>
+    <meta name="description" content="Contacta para booking, colaboraciones o prensa con DJ KUKI." />
+    <link rel="canonical" href="https://djkuki.vercel.app/contact.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contacto DJ KUKI" />
+    <meta property="og:description" content="Booking de Breakbeat, Hardcore Breaks y Drum &amp; Bass." />
+    <meta property="og:url" content="https://djkuki.vercel.app/contact.html" />
+    <meta property="og:image" content="https://djkuki.vercel.app/assets/img/social-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Contacto DJ KUKI" />
+    <meta name="twitter:description" content="Escríbenos para fechas y prensa." />
+    <meta name="twitter:image" content="https://djkuki.vercel.app/assets/img/social-og.jpg" />
+    <link rel="preload" href="assets/fonts/Orbitron-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="theme-color" content="#b026ff" />
+    <link rel="stylesheet" href="assets/css/vendor-normalize.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="page">
+      <header>
+        <nav class="navbar" aria-label="Principal">
+          <a class="brand" href="index.html">
+            <img src="assets/img/djkuki-logo.svg" alt="DJ KUKI" width="48" height="48" loading="lazy" />
+            DJ KUKI
+          </a>
+          <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="about.html">Sobre</a>
+            <a href="gigs.html">Gigs</a>
+            <a href="mixes.html">Mixes</a>
+            <a href="contact.html" aria-current="page">Contacto</a>
+          </div>
+        </nav>
+      </header>
+      <main id="contenido">
+        <section class="page-hero" aria-labelledby="contact-title">
+          <h1 id="contact-title">Booking &amp; contacto</h1>
+          <p>Promotoras, festivales y prensa pueden escribir para disponibilidad, riders o colaboraciones especiales AV.</p>
+        </section>
+
+        <section class="section" aria-labelledby="contact-heading">
+          <div class="section-heading">
+            <h2 id="contact-heading">Conecta</h2>
+          </div>
+          <div class="card form-card">
+            <p class="eyebrow">Redes</p>
+            <div class="social-links">
+              <a href="https://instagram.com/djkuki" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                Instagram
+              </a>
+              <a href="https://soundcloud.com/djkuki" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud">
+                SoundCloud
+              </a>
+              <a href="https://mixcloud.com/djkuki" target="_blank" rel="noopener noreferrer" aria-label="Mixcloud">
+                Mixcloud
+              </a>
+              <a href="https://youtube.com/@djkuki" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                YouTube
+              </a>
+              <a href="mailto:booking@djkuki.com" aria-label="Email booking">
+                Email
+              </a>
+            </div>
+            <form method="post" action="https://formspree.io/f/your-id">
+              <!-- Reemplaza la acción anterior por tu endpoint favorito (Formspree, Basin, Netlify Forms, etc.). -->
+              <label>
+                Nombre / Agencia
+                <input type="text" name="name" autocomplete="organization" required />
+              </label>
+              <label>
+                Email de contacto
+                <input type="email" name="email" autocomplete="email" required />
+              </label>
+              <label>
+                Mensaje / Detalles del booking
+                <textarea name="message" rows="5" required></textarea>
+              </label>
+              <button class="btn btn-primary" type="submit">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <small>© <span id="year"></span> DJ KUKI — Breakbeat Futurista.</small>
+      </footer>
+    </div>
+    <script defer src="assets/js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+[
+  {
+    "date": "2025-02-15",
+    "city": "Madrid",
+    "venue": "Sala Nebula",
+    "country": "ES",
+    "ticketsUrl": "https://tickets.dj-kuki.com/madrid"
+  },
+  {
+    "date": "2025-03-08",
+    "city": "Barcelona",
+    "venue": "Hologram Club",
+    "country": "ES",
+    "ticketsUrl": "https://tickets.dj-kuki.com/barcelona"
+  },
+  {
+    "date": "2025-04-12",
+    "city": "Lisboa",
+    "venue": "BassForge",
+    "country": "PT",
+    "ticketsUrl": "https://tickets.dj-kuki.com/lisboa"
+  },
+  {
+    "date": "2025-05-03",
+    "city": "Berlin",
+    "venue": "Circuit District",
+    "country": "DE",
+    "ticketsUrl": "https://tickets.dj-kuki.com/berlin"
+  },
+  {
+    "date": "2025-06-14",
+    "city": "Tenerife",
+    "venue": "Club XYZ",
+    "country": "ES",
+    "ticketsUrl": "https://tickets.dj-kuki.com/tenerife"
+  },
+  {
+    "date": "2025-07-26",
+    "city": "London",
+    "venue": "Vault 303",
+    "country": "UK",
+    "ticketsUrl": "https://tickets.dj-kuki.com/london"
+  },
+  {
+    "date": "2025-09-13",
+    "city": "Prague",
+    "venue": "Bass Reactor",
+    "country": "CZ",
+    "ticketsUrl": "https://tickets.dj-kuki.com/prague"
+  }
+]

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gigs | DJ KUKI</title>
+    <meta name="description" content="Próximos gigs y fechas confirmadas de DJ KUKI." />
+    <link rel="canonical" href="https://djkuki.vercel.app/gigs.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Gigs DJ KUKI" />
+    <meta property="og:description" content="Consulta la agenda de breakbeat futurista." />
+    <meta property="og:url" content="https://djkuki.vercel.app/gigs.html" />
+    <meta property="og:image" content="https://djkuki.vercel.app/assets/img/social-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Gigs DJ KUKI" />
+    <meta name="twitter:description" content="Breakbeat, Hardcore Breaks y Drum &amp; Bass." />
+    <meta name="twitter:image" content="https://djkuki.vercel.app/assets/img/social-og.jpg" />
+    <link rel="preload" href="assets/fonts/Orbitron-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="theme-color" content="#b026ff" />
+    <link rel="stylesheet" href="assets/css/vendor-normalize.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="page">
+      <header>
+        <nav class="navbar" aria-label="Principal">
+          <a class="brand" href="index.html">
+            <img src="assets/img/djkuki-logo.svg" alt="DJ KUKI" width="48" height="48" loading="lazy" />
+            DJ KUKI
+          </a>
+          <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="about.html">Sobre</a>
+            <a href="gigs.html" aria-current="page">Gigs</a>
+            <a href="mixes.html">Mixes</a>
+            <a href="contact.html">Contacto</a>
+          </div>
+        </nav>
+      </header>
+      <main id="contenido">
+        <section class="page-hero" aria-labelledby="gigs-title">
+          <h1 id="gigs-title">Agenda</h1>
+          <p>
+            Próximas paradas del tour cyberpunk. Filtra por país o mes para sincronizar con tu ciudad.
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="filters-heading">
+          <div class="section-heading">
+            <h2 id="filters-heading">Filtrar fechas</h2>
+          </div>
+          <form class="gigs-filters" aria-label="Filtros de gigs">
+            <label for="country-filter">
+              País
+              <select id="country-filter" name="country-filter">
+                <option value="">Todos los países</option>
+              </select>
+            </label>
+            <label for="month-filter">
+              Mes
+              <input type="month" id="month-filter" name="month-filter" />
+            </label>
+          </form>
+          <div id="gigs-list" class="cards-grid" role="list" aria-live="polite"></div>
+        </section>
+      </main>
+      <footer>
+        <small>© <span id="year"></span> DJ KUKI — Breakbeat Futurista.</small>
+      </footer>
+    </div>
+    <script defer src="assets/js/app.js"></script>
+  </body>
+</html>
